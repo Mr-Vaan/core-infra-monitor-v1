@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infra Health Intelligence</title>
+    <meta name="description" content="AI-powered capacity & anomaly advisor for virtualization clusters (Proxmox VE, Nutanix AHV, and OpenStack)." />
+    <meta property="og:title" content="Infra Health Intelligence" />
+    <meta property="og:description" content="AI-powered capacity & anomaly advisor for virtualization clusters (Proxmox VE, Nutanix AHV, and OpenStack)." />
+    <script>
+      // Defensive guard for Performance User Timing API in development mode
+      (function() {
+        if (typeof window !== 'undefined' && window.performance) {
+          if (typeof window.performance.measure === 'function') {
+            var origMeasure = window.performance.measure.bind(window.performance);
+            window.performance.measure = function(name, options, endMark) {
+              try {
+                return origMeasure(name, options, endMark);
+              } catch (e) {
+                // If structuredClone fails on detail/options or buffer memory is exhausted,
+                // try fallback without detail, or swallow safely so it never crashes React rendering
+                try {
+                  return origMeasure(name);
+                } catch (_) {
+                  return undefined;
+                }
+              }
+            };
+          }
+          // Prevent runaway buffer in development
+          setInterval(function() {
+            try {
+              if (window.performance.clearMeasures) window.performance.clearMeasures();
+              if (window.performance.clearMarks) window.performance.clearMarks();
+            } catch (_) {}
+          }, 30000);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

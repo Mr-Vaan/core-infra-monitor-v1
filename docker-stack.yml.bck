@@ -1,0 +1,81 @@
+version: '3.8'
+
+# ==============================================================================
+# Docker Swarm Production Stack Specification
+# Deploy command: docker stack deploy -c docker-stack.yml infra-stack
+# ==============================================================================
+
+services:
+  app:
+    image: ${IMAGE_NAME:-infra-health-intel:latest}
+    ports:
+      # Swarm Ingress Routing Mesh exposes port 3000 across all cluster nodes
+      - target: 3000
+        published: 3000
+        protocol: tcp
+        mode: ingress
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    networks:
+      - infra-overlay-net
+    deploy:
+      mode: replicated
+      # 3 Replicas for High-Availability across Swarm worker nodes
+      replicas: 3
+      endpoint_mode: vip
+      
+      # Zero-Downtime Rolling Update Strategy
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        monitor: 15s
+        max_failure_ratio: 0.1
+        order: start-first
+      
+      # Automatic Rollback Configuration if new deployment fails healthcheck
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+      
+      # Resilient Restart Policy
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+      
+      # Resource Allocation & Quotas
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1536M
+        reservations:
+          cpus: '0.25'
+          memory: 384M
+      
+      # Placement Constraints (Deploy on worker nodes, avoid overloading manager)
+      placement:
+        constraints:
+          - node.role == worker
+        preferences:
+          - spread: node.id
+
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+# Encrypted Swarm Overlay Network for Inter-Node Service Mesh
+networks:
+  infra-overlay-net:
+    driver: overlay
+    attachable: true
+    # Enable IPSec encryption across multi-host nodes in production
+    driver_opts:
+      encrypted: "true"

@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+  
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+}
+
+.theme-light {
+  --color-slate-50: #020617;
+  --color-slate-100: #0f172a;
+  --color-slate-200: #1e293b;
+  --color-slate-300: #334155;
+  --color-slate-400: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-600: #94a3b8;
+  --color-slate-700: #cbd5e1;
+  --color-slate-800: #e2e8f0;
+  --color-slate-900: #ffffff;
+  --color-slate-950: #f8fafc;
+
+  --slate-50: #020617;
+  --slate-100: #0f172a;
+  --slate-200: #1e293b;
+  --slate-300: #334155;
+  --slate-400: #475569;
+  --slate-500: #64748b;
+  --slate-600: #94a3b8;
+  --slate-700: #cbd5e1;
+  --slate-800: #e2e8f0;
+  --slate-900: #ffffff;
+  --slate-950: #f8fafc;
+}
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
+}
+
+/* Custom scrollbars for dashboard views */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--slate-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--slate-700);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--slate-600);
+}
+
+/* Explicit high-contrast fix for date & time pickers across light and dark modes */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+  color-scheme: light !important;
+}
+
+input.date-input-solid,
+.custom-date-modal input[type="date"] {
+  color-scheme: light !important;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #000000 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+}
+
+input.date-input-solid::-webkit-datetime-edit,
+input.date-input-solid::-webkit-datetime-edit-fields-wrapper,
+input.date-input-solid::-webkit-datetime-edit-text,
+input.date-input-solid::-webkit-datetime-edit-month-field,
+input.date-input-solid::-webkit-datetime-edit-day-field,
+input.date-input-solid::-webkit-datetime-edit-year-field,
+.custom-date-modal input[type="date"]::-webkit-datetime-edit,
+.custom-date-modal input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.custom-date-modal input[type="date"]::-webkit-datetime-edit-text,
+.custom-date-modal input[type="date"]::-webkit-datetime-edit-month-field,
+.custom-date-modal input[type="date"]::-webkit-datetime-edit-day-field,
+.custom-date-modal input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+}
+
+input.date-input-solid::-webkit-calendar-picker-indicator,
+.custom-date-modal input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: brightness(0) !important;
+  opacity: 1 !important;
+}
+
+/* Force solid black readability inside custom date modal */
+.custom-date-modal {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+.custom-date-modal label,
+.custom-date-modal span,
+.custom-date-modal p,
+.custom-date-modal h3,
+.custom-date-modal strong {
+  opacity: 1 !important;
+}
+
+/* Markdown styling inside AI response boxes */
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  color: var(--slate-100);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.markdown-body h1 { font-size: 1.35rem; }
+.markdown-body h2 { font-size: 1.15rem; }
+.markdown-body h3 { font-size: 1rem; }
+.markdown-body p {
+  color: var(--slate-300);
+  margin-bottom: 0.75rem;
+  font-size: 0.925rem;
+  line-height: 1.6;
+}
+.markdown-body ul, .markdown-body ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--slate-300);
+  font-size: 0.925rem;
+}
+.markdown-body ul { list-style-type: disc; }
+.markdown-body ol { list-style-type: decimal; }
+.markdown-body li {
+  margin-bottom: 0.25rem;
+}
+.markdown-body code {
+  font-family: "JetBrains Mono", monospace;
+  background-color: var(--slate-800);
+  color: #38bdf8;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+}
+.theme-light .markdown-body code {
+  color: #0284c7;
+}
+.markdown-body strong {
+  font-weight: 600;
+  color: var(--slate-200);
+}
+.markdown-body blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 0.75rem;
+  margin: 0.75rem 0;
+  color: var(--slate-400);
+  font-style: italic;
+}
+
+/* Smooth theme transitions for layout container and text */
+.theme-light,
+:root {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+div, aside, main, section, h1, h2, h3, h4, h5, h6, p, span, button, table, tr, td, th, input, select, textarea {
+  transition-property: background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Ensure body handles the light background gracefully on root level */
+body {
+  background-color: var(--slate-950);
+  color: var(--slate-100);
+}

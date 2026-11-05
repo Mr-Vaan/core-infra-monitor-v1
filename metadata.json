@@ -1,0 +1,6 @@
+{
+  "name": "Infra Health Intelligence",
+  "description": "AI-powered capacity & anomaly advisor for virtualization clusters (Proxmox VE, Nutanix AHV, and OpenStack).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
